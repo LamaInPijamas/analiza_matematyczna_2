@@ -13,6 +13,7 @@ private:
   GLFWwindow* window;
   bool running = true;
 
+  GLuint VAO;
   std::string vertexShader = "";
   std::string fragmentShader = "";
   std::string computeShader = "";

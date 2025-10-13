@@ -55,31 +55,21 @@ void OpenGLRenderer::Renderer::createRenderer()
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
-}
-
-bool OpenGLRenderer::Renderer::isRunning()
-{
-  return running;
-}
-
-void OpenGLRenderer::Renderer::renderFrame() {
-  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 
   GLfloat quadVertices[] = {
-      // Positions
-      -1.0f,  1.0f,  // Top-left
-      -1.0f, -1.0f,  // Bottom-left
-      1.0f,  1.0f,  // Top-right
-      1.0f, -1.0f,  // Bottom-right
+    // Positions
+    -1.0f,  1.0f,  // Top-left
+    -1.0f, -1.0f,  // Bottom-left
+    1.0f,  1.0f,  // Top-right
+    1.0f, -1.0f,  // Bottom-right
   };
 
   GLuint indices[] = {
-      0, 1, 2,  // First triangle
-      1, 3, 2   // Second triangle
+    0, 1, 2,  // First triangle
+    1, 3, 2   // Second triangle
   };
 
-  GLuint VBO, VAO, EBO;
+  GLuint VBO, EBO;
   glGenBuffers(1, &VBO);
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &EBO);
@@ -93,6 +83,18 @@ void OpenGLRenderer::Renderer::renderFrame() {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  
+}
+
+bool OpenGLRenderer::Renderer::isRunning()
+{
+  return running;
+}
+
+void OpenGLRenderer::Renderer::renderFrame() {
+  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+  
   glUseProgram(compiledShader);
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
