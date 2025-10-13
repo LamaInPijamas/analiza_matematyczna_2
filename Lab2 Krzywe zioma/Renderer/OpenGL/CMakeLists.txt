@@ -4,7 +4,7 @@ project(OpenGLRenderer LANGUAGES CXX)
 
 set(src 
   "OpenGL_Renderer.cpp"
-  ${ROOT_DIR}/vendor/glad/src/glad.c
+  ${ROOT_DIR}/vendor/glad/glad-3.3/src/glad.c
 )
 
 add_library(OpenGLRenderer ${src})
