@@ -28,7 +28,7 @@ void OpenGLRenderer::Renderer::createWindow()
     throw std::runtime_error("Can't initialize GLFW");
   }
 
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
@@ -126,7 +126,39 @@ void OpenGLRenderer::Renderer::bindComputeShader(std::string shader) {
   computeShader = shader;
 }
 
-void OpenGLRenderer::Renderer::bindVertexShader(std::string shader) {
+void OpenGLRenderer::Renderer::runComputeShader(std::vector<std::pair<float, float>> data)
+{
+  GLuint computeShaderPart = glCreateShader(GL_COMPUTE_SHADER);
+  const char* computeShaderData = computeShader.c_str();
+  glShaderSource(computeShaderPart, 1, &computeShaderData, nullptr);
+  glCompileShader(computeShaderPart);
+  GLuint program = glCreateProgram();
+  glAttachShader(program, computeShaderPart);
+  glLinkProgram(program);
+  glUseProgram(program);
+
+  GLuint inputSSBO, outputSSBO;
+    
+  glGenBuffers(1, &inputSSBO);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, inputSSBO);
+  glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() * sizeof(std::pair<float, float>), data.data(), GL_STATIC_DRAW);
+
+  glGenBuffers(1, &outputSSBO);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, outputSSBO);
+  glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() * sizeof(std::pair<float, float>), nullptr, GL_DYNAMIC_COPY);
+
+  glDispatchCompute(data.size(), 1, 1);
+
+  glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+  glDeleteShader(computeShaderPart);
+  glDeleteProgram(program);
+
+  for(auto el : data)
+    printf("%d", el);
+}
+
+void OpenGLRenderer::Renderer::bindVertexShader(std::string shader)
+{
   vertexShader = shader;
 }
 

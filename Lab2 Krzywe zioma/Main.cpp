@@ -9,6 +9,10 @@ int main(){
 
   renderer.bindVertexShader(Shader::vertex);
   renderer.bindFragmentShader(Shader::fragment);
+  renderer.bindComputeShader(Shader::compute);
+  std::vector<std::pair<float, float>> data;
+  data.emplace_back(std::pair<float, float>({1, 1}));
+  renderer.runComputeShader(data);
   renderer.compileShaders();
 
   while(renderer.isRunning()){

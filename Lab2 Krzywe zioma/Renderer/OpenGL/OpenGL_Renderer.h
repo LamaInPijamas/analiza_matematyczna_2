@@ -33,12 +33,11 @@ public:
   bool isRunning();
   void renderFrame();
 
-  void pushPoints(std::initializer_list<std::pair<float, float>> data);
   void bindVertexShader(std::string shader);
   void bindFragmentShader(std::string shader);
   void compileShaders();
   void bindComputeShader(std::string shader);
-  void runComputeShader();
+  void runComputeShader(std::vector<std::pair<float, float>> data);
   
 };
 };
