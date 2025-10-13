@@ -10,6 +10,7 @@ set(src
 
 add_subdirectory(Renderer)
 add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/glm)
 
 add_executable(Curve ${src})
 

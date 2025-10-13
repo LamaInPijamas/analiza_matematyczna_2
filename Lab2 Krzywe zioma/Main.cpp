@@ -10,8 +10,9 @@ int main(){
   renderer.bindVertexShader(Shader::vertex);
   renderer.bindFragmentShader(Shader::fragment);
   renderer.bindComputeShader(Shader::compute);
-  std::vector<std::pair<float, float>> data;
-  data.emplace_back(std::pair<float, float>({1, 1}));
+  std::vector<glm::vec2> data;
+  data.emplace_back(glm::vec2({0.0f, 0.0f}));
+  data.emplace_back(glm::vec2({255.0f, 255.0f}));
   renderer.runComputeShader(data);
   renderer.compileShaders();
 

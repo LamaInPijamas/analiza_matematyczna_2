@@ -9,6 +9,7 @@ OpenGLRenderer::Renderer::~Renderer()
   if (VBO) glDeleteBuffers(1, &VBO);
   if (VAO) glDeleteBuffers(1, &VAO);
   if (EBO) glDeleteBuffers(1, &EBO);
+  if (pointsSSBO) glDeleteBuffers(1, &pointsSSBO);
   if (window) glfwDestroyWindow(window);
   glfwTerminate();
 };
@@ -126,7 +127,7 @@ void OpenGLRenderer::Renderer::bindComputeShader(std::string shader) {
   computeShader = shader;
 }
 
-void OpenGLRenderer::Renderer::runComputeShader(std::vector<std::pair<float, float>> data)
+void OpenGLRenderer::Renderer::runComputeShader(std::vector<glm::vec2> data)
 {
   GLuint computeShaderPart = glCreateShader(GL_COMPUTE_SHADER);
   const char* computeShaderData = computeShader.c_str();
@@ -136,25 +137,17 @@ void OpenGLRenderer::Renderer::runComputeShader(std::vector<std::pair<float, flo
   glAttachShader(program, computeShaderPart);
   glLinkProgram(program);
   glUseProgram(program);
-
-  GLuint inputSSBO, outputSSBO;
     
-  glGenBuffers(1, &inputSSBO);
-  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, inputSSBO);
-  glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() * sizeof(std::pair<float, float>), data.data(), GL_STATIC_DRAW);
-
-  glGenBuffers(1, &outputSSBO);
-  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, outputSSBO);
-  glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() * sizeof(std::pair<float, float>), nullptr, GL_DYNAMIC_COPY);
+  glGenBuffers(1, &pointsSSBO);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, pointsSSBO);
+  glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() * sizeof(glm::vec2), data.data(), GL_STATIC_DRAW);
 
   glDispatchCompute(data.size(), 1, 1);
 
   glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+
   glDeleteShader(computeShaderPart);
   glDeleteProgram(program);
-
-  for(auto el : data)
-    printf("%d", el);
 }
 
 void OpenGLRenderer::Renderer::bindVertexShader(std::string shader)

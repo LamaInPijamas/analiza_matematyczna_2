@@ -1,6 +1,7 @@
 #pragma once
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "glm/glm.hpp"
 #include <string>
 #include <vector>
 #include <stdexcept>
@@ -14,6 +15,7 @@ private:
   bool running = true;
 
   GLuint VAO, VBO, EBO;
+  GLuint pointsSSBO;
   std::string vertexShader = "";
   std::string fragmentShader = "";
   std::string computeShader = "";
@@ -37,7 +39,7 @@ public:
   void bindFragmentShader(std::string shader);
   void compileShaders();
   void bindComputeShader(std::string shader);
-  void runComputeShader(std::vector<std::pair<float, float>> data);
+  void runComputeShader(std::vector<glm::vec2> data);
   
 };
 };

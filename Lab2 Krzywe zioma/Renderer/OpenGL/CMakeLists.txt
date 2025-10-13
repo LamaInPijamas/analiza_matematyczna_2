@@ -13,10 +13,12 @@ target_include_directories(OpenGLRenderer PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${ROOT_DIR}/vendor/glad/glad-4.3/include/  
     ${ROOT_DIR}/vendor/glfw/include/
+    ${ROOT_DIR}/vendor/glm/glm/
   )
   
 target_link_libraries(OpenGLRenderer 
     glfw 
+    glm
     X11
     Xrandr
     Xcursor

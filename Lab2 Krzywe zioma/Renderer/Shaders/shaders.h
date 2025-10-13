@@ -13,13 +13,19 @@ void main() {
 std::string fragment = R"(
 #version 430 core
 
+// Declare the SSBO for color data
+layout(std140, binding = 0) buffer ColorBuffer {
+    vec2 colors[]; // Array of colors stored in the SSBO
+};
+
 out vec4 FragColor;
 
 void main() {
-  vec2 position = gl_FragCoord.xy / vec2(800.0, 600.0);
-
-  FragColor = vec4(position.x, position.y, 0.0, 1.0);
+    // For simplicity, let's access the first color in the array
+    // You can access based on any condition, like gl_FragCoord or other logic.
+    FragColor = vec4(colors[0].x, colors[0].y, colors[1].x,  colors[1].y); // Access the first color from the SSBO
 }
+
 )";
 
 std::string compute = R"(
@@ -29,18 +35,14 @@ layout(local_size_x = 1) in; // Workgroup size (1 for simplicity)
 
 // Input and Output SSBOs
 layout(std430, binding = 0) buffer InputBuffer {
-    vec3 inputData[];  // Input data
-};
-
-layout(std430, binding = 1) buffer OutputBuffer {
-    vec3 outputData[]; // Processed output data
+    vec2 inputData[];  // Input data
 };
 
 void main() {
     uint idx = gl_GlobalInvocationID.x; // Get index for current workgroup
 
     // Simple computation (e.g., scaling the points)
-    outputData[idx] = inputData[idx] * 2.0;  // Example: scaling by 2
+    inputData[idx] = inputData[idx] / 255.0f;  // Example: scaling divide by 255
 }
 )";
 
