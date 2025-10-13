@@ -1,3 +1,6 @@
 [submodule "Lab2 Krzywe zioma/vendor/glfw"]
 	path = Lab2 Krzywe zioma/vendor/glfw
 	url = https://github.com/glfw/glfw
+[submodule "Lab2 Krzywe zioma/vendor/glad"]
+	path = Lab2 Krzywe zioma/vendor/glad
+	url = https://github.com/Daynlight/glad.git
