@@ -14,7 +14,7 @@ std::string fragment = R"(
 #version 430 core
 
 // Declare the SSBO for color data
-layout(std140, binding = 0) buffer ColorBuffer {
+layout(std430, binding = 0) buffer ColorBuffer {
     vec2 colors[]; // Array of colors stored in the SSBO
 };
 
