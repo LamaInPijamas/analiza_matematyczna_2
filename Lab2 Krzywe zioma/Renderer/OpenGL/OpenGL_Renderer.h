@@ -13,6 +13,11 @@ private:
   GLFWwindow* window;
   bool running = true;
 
+  std::string vertexShader = "";
+  std::string fragmentShader = "";
+  std::string computeShader = "";
+  GLuint compiledShader;
+
 public:
   Renderer();
   ~Renderer();
@@ -28,9 +33,11 @@ public:
   void renderFrame();
 
   void pushPoints(std::initializer_list<std::pair<float, float>> data);
-  void runComputeShader(std::string shader);
-  void runVertexShader(std::string shader);
-  void runFragmentShader(std::string shader);
+  void bindVertexShader(std::string shader);
+  void bindFragmentShader(std::string shader);
+  void compileShaders();
+  void bindComputeShader(std::string shader);
+  void runComputeShader();
   
 };
 };

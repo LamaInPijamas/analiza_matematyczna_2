@@ -64,7 +64,36 @@ bool OpenGLRenderer::Renderer::isRunning()
 void OpenGLRenderer::Renderer::renderFrame() {
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-  
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
   glfwSwapBuffers(window);
+}
+
+void OpenGLRenderer::Renderer::compileShaders() {
+  GLuint vertexShaderPart = glCreateShader(GL_VERTEX_SHADER);
+  const char* vertexShaderData = vertexShader.c_str();
+  glShaderSource(vertexShaderPart, 1, &vertexShaderData, nullptr);
+  glCompileShader(vertexShaderPart);
+  GLuint fragmentShaderPart = glCreateShader(GL_FRAGMENT_SHADER);
+  const char* fragmentShaderData = fragmentShader.c_str();
+  glShaderSource(fragmentShaderPart, 1, &fragmentShaderData, nullptr);
+  glCompileShader(fragmentShaderPart);
+  compiledShader = glCreateProgram();
+  glAttachShader(compiledShader, vertexShaderPart);
+  glAttachShader(compiledShader, fragmentShaderPart);
+  glLinkProgram(compiledShader);
+  glDeleteShader(vertexShaderPart);
+  glDeleteShader(fragmentShaderPart);
+}
+
+void OpenGLRenderer::Renderer::bindComputeShader(std::string shader) {
+  computeShader = shader;
+}
+
+void OpenGLRenderer::Renderer::bindVertexShader(std::string shader) {
+  vertexShader = shader;
+}
+
+void OpenGLRenderer::Renderer::bindFragmentShader(std::string shader) {
+  fragmentShader = shader;
 };
