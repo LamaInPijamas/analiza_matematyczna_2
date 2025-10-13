@@ -6,13 +6,16 @@ OpenGLRenderer::Renderer::~Renderer()
 {
   running = false;
   if (compiledShader) glDeleteProgram(compiledShader);
-  if(window) glfwDestroyWindow(window);
+  if (VBO) glDeleteBuffers(1, &VBO);
+  if (VAO) glDeleteBuffers(1, &VAO);
+  if (EBO) glDeleteBuffers(1, &EBO);
+  if (window) glfwDestroyWindow(window);
   glfwTerminate();
 };
 
 void OpenGLRenderer::Renderer::windowEvents()
 {
-    glfwPollEvents();
+  glfwPollEvents();
   if(glfwWindowShouldClose(window)) running = false;
 }
 
@@ -69,7 +72,6 @@ void OpenGLRenderer::Renderer::createRenderer()
     1, 3, 2   // Second triangle
   };
 
-  GLuint VBO, EBO;
   glGenBuffers(1, &VBO);
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &EBO);
