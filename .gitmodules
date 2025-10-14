@@ -1,13 +1,3 @@
-[submodule "Lab2 Krzywe zioma/vendor/glfw"]
-	path = Lab2 Krzywe zioma/vendor/glfw
-	url = https://github.com/glfw/glfw
-[submodule "Lab2 Krzywe zioma/vendor/glad"]
-	path = Lab2 Krzywe zioma/vendor/glad
-	url = https://github.com/Daynlight/glad.git
-[submodule "Lab2 Krzywe zioma/vendor/glm"]
-	path = Lab2 Krzywe zioma/vendor/glm
-	url = https://github.com/g-truc/glm.git
-[submodule "Lab2 Krzywe zioma/vendor/imgui"]
-	path = Lab2 Krzywe zioma/vendor/imgui
-	url = https://github.com/ocornut/imgui.git
-	branch = docking
+[submodule "Lab2/App"]
+	path = Lab2/App
+	url = https://github.com/Daynlight/CWindow.git
