@@ -31,9 +31,11 @@ public:
   void windowEvents();
   
   void createWindow();
+  GLFWwindow* getWindow();
   void createRenderer();
   bool isRunning();
   void renderFrame();
+  void swapBuffer();
 
   void bindVertexShader(std::string shader);
   void bindFragmentShader(std::string shader);

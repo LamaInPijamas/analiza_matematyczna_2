@@ -46,6 +46,11 @@ void OpenGLRenderer::Renderer::createWindow()
   running = true;
 }
 
+GLFWwindow* OpenGLRenderer::Renderer::getWindow()
+{
+  return window;
+}
+
 void OpenGLRenderer::Renderer::createRenderer()
 {
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -102,7 +107,10 @@ void OpenGLRenderer::Renderer::renderFrame() {
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
-  
+}
+
+void OpenGLRenderer::Renderer::swapBuffer()
+{
   glfwSwapBuffers(window);
 }
 
