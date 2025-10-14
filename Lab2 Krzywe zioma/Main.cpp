@@ -21,8 +21,8 @@ int main(){
   renderer.bindComputeShader(Shader::compute);
   std::vector<glm::vec2> data;
   data.emplace_back(glm::vec2({0.0f, 0.0f})); // z_0
-  data.emplace_back(glm::vec2({196.0f, 255.0f})); // maxIter, red
-  data.emplace_back(glm::vec2({196.0f, 255.0f})); // green, blue
+  data.emplace_back(glm::vec2({500, 20.1f})); // maxIter, red
+  data.emplace_back(glm::vec2({104.0f, 5.2f})); // green, blue
   renderer.runComputeShader(data);
   
   // compile vertex and fragment shader

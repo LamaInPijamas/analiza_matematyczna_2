@@ -15,12 +15,17 @@ std::string fragment = R"(
 
 out vec4 FragColor;
 
-int maxIter = 500;
+layout(std430, binding = 0) buffer ColorBuffer {
+    vec2 data[];
+};
+
+int maxIter = int(data[1].x);
+vec2 a1 = data[0];
+vec2 c = (gl_FragCoord.xy / vec2(800.0, 600.0)) * 3.0 - vec2(2.0, 1.5);
+vec2 a2 = a1;
+vec3 colors = {data[1].y, data[2].x, data[2].y};
 
 void main() {
-    vec2 c = (gl_FragCoord.xy / vec2(800.0, 600.0)) * 3.0 - vec2(2.0, 1.5);
-    vec2 a1 = c;
-    vec2 a2 = a1;
     
     int j = 0;
     for(int i = 0; i < maxIter; i++){
@@ -37,12 +42,13 @@ void main() {
 
     float t = float(j) / float(maxIter); 
     vec3 color = vec3(
-        0.5 + 0.5 * sin(t * 20.0 + 0.0),  // Red channel with adjusted frequency
-        0.5 + 0.5 * cos(t * 1.5 + 1.0),  // Green channel with different frequency and phase
-        0.5 + 0.5 * sin(t * 10.0 + 2.0)   // Blue channel with another frequency and phase shift
+        0.5 + 0.5 * sin(t * colors.x + 0.0),
+        0.5 + 0.5 * cos(t * colors.y + 1.0),
+        0.5 + 0.5 * sin(t * colors.z + 2.0)
     );
+
     float smoothColor = smoothstep(0.0, 1.0, length(a2));
-    FragColor = vec4(color * smoothColor, 1.0);  // Set the final color
+    FragColor = vec4(color * smoothColor, 1.0);
 }
 )";
 
@@ -51,18 +57,13 @@ void main() {
 std::string compute = R"(
 #version 430 core
 
-layout(local_size_x = 1) in; // Workgroup size (1 for simplicity)
-
-// Input and Output SSBOs
 layout(std430, binding = 0) buffer InputBuffer {
-    vec2 inputData[];  // Input data
+    vec2 data[];  // Input data
 };
 
 void main() {
-    uint idx = gl_GlobalInvocationID.x; // Get index for current workgroup
-
-    // Simple computation (e.g., scaling the points)
-    inputData[idx] = inputData[idx] / 255.0f;  // Example: scaling divide by 255
+    uint idx = gl_GlobalInvocationID.x;
+    data[idx] = data[idx];
 }
 )";
 
