@@ -19,13 +19,16 @@ layout(std430, binding = 0) buffer ColorBuffer {
     vec2 data[];
 };
 
-int maxIter = int(data[1].x);
-vec2 a1 = data[0];
-vec2 c = (gl_FragCoord.xy / vec2(800.0, 600.0)) * 3.0 - vec2(2.0, 1.5);
-vec2 a2 = a1;
-vec3 colors = {data[1].y, data[2].x, data[2].y};
-
 void main() {
+    int maxIter = int(data[1].x);
+    vec2 a1 = (gl_FragCoord.xy / vec2(800.0, 600.0)) * 3.0 - vec2(2.0, 1.5);
+    vec2 c = data[0];
+    if (data[0].x == 0.0f && data[0].y == 0.0f){
+        a1 = data[0];
+        c = (gl_FragCoord.xy / vec2(800.0, 600.0)) * 3.0 - vec2(2.0, 1.5);
+    }
+    vec2 a2 = a1;
+    vec3 colors = {data[1].y, data[2].x, data[2].y};
     
     int j = 0;
     for(int i = 0; i < maxIter; i++){

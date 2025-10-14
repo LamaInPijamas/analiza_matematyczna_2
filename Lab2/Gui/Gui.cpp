@@ -57,7 +57,7 @@ void Gui::Gui::renderSettings()
   ImGui::Begin("Settings", nullptr);
 
   if(ImGui::InputFloat2("Z_0", new_z_0, "%.3f")) update = true;
-  if(ImGui::SliderFloat2("Z_0 Sidler", new_z_0, -2, 2, "%.3f")) update = true;
+  if(ImGui::SliderFloat2("Z_0 Sidler", new_z_0, -3, 3, "%.3f")) update = true;
   if(ImGui::InputFloat3("colors", new_colors, "%.3f")) update = true;
   if(ImGui::ColorPicker3("colors", new_colors)){
     for(int i = 0; i < 3; i++){
