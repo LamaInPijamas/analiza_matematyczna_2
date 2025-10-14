@@ -8,10 +8,11 @@ set(src
   "Main.cpp"
 )
 
-add_subdirectory(Renderer)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glm)
+add_subdirectory(Renderer)
+add_subdirectory(Gui)
 
 add_executable(Curve ${src})
 
-target_link_libraries(Curve OpenGLRenderer)
+target_link_libraries(Curve OpenGLRenderer Gui)
