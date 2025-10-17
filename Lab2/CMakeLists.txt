@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 project(Main LANGUAGES CXX C)
 
-add_subdirectory(App/CWindow)
+add_subdirectory(CWindow/CWindow)
 set(src "Main.cpp")
 set(headers "Mandelbrot.h")
 
