@@ -7,7 +7,7 @@ i tu
 CWindow zajmuje sie renderowaniem tam nic skompliowanego nie ma w sumie
 
 [CWindow docs](https://github.com/Daynlight/CWindow)
-tu masz lekko documentacjie jeszcze bez renderera
+tu masz dokumentacjie
 
 
 
