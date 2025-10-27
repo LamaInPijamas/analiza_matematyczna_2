@@ -77,36 +77,26 @@ inline std::function<void(CW::Renderer::iRenderer *window)> renderSettingsWindow
 
   if(ImGui::Button("Julia: 0.35 + 0.35i")){
     mode = 1;
-    (*uniform)["zoom"]->set<float>(3.0f);
-    (*uniform)["world_post"]->set<glm::vec2>({0.0f, 0.0f});
     z = {0.35f, 0.35f};
   }
 
   if(ImGui::Button("Julia: 0.4 + 0.4i")){
     mode = 1;
-    (*uniform)["zoom"]->set<float>(3.0f);
-    (*uniform)["world_post"]->set<glm::vec2>({0.0f, 0.0f});
     z = {0.4f, 0.4f};
   }
   
   if(ImGui::Button("Julia: -0.7269 + 0.1886i")){
-    mode = 1;
-    (*uniform)["zoom"]->set<float>(3.0f);
-    (*uniform)["world_post"]->set<glm::vec2>({0.0f, 0.0f});
+    mode = 1;;
     z = {-0.7269f, 0.1889f};
   }
 
   if(ImGui::Button("Julia: -0.8 + 0.156i")){
     mode = 1;
-    (*uniform)["zoom"]->set<float>(3.0f);
-    (*uniform)["world_post"]->set<glm::vec2>({0.0f, 0.0f});
     z = {-0.8f, 0.156f};
   }
 
   if(ImGui::Button("Julia: -0.8i")){
     mode = 1;
-    (*uniform)["zoom"]->set<float>(3.0f);
-    (*uniform)["world_post"]->set<glm::vec2>({0.0f, 0.0f});
     z = {0.0f, -0.8f};
   }
 
