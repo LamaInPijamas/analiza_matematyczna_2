@@ -1,0 +1,79 @@
+OPRACOWANIE - Pytania z zakresu matematyki i informatyki
+========================================================
+Laboratorium 9: Regresja liniowa i różniczka zupełna
+
+================================================================================
+PYTANIA:
+================================================================================
+
+1. Co to jest regresja liniowa i do czego służy?
+   Odpowiedź: Regresja liniowa to metoda statystyczna służąca do modelowania 
+   zależności między zmienną zależną (y) a jedną lub więcej zmiennymi 
+   niezależnymi (x). Pozwala przewidywać wartości zmiennej zależnej na podstawie 
+   wartości zmiennych niezależnych oraz określić siłę i kierunek tej zależności.
+
+2. Jak działa algorytm gradientu prostego (gradient descent) w kontekście 
+   regresji liniowej?
+   Odpowiedź: Algorytm gradientu prostego iteracyjnie dostosowuje parametry 
+   modelu (współczynniki a i b) w kierunku przeciwnym do gradientu funkcji 
+   kosztu. W każdym kroku obliczamy pochodne cząstkowe funkcji błędu względem 
+   parametrów i aktualizujemy je według wzoru: θ = θ - α·∇J(θ), gdzie α to 
+   współczynnik uczenia (learning rate).
+
+3. Co to jest funkcja kosztu (cost function) i jaka jest jej rola w regresji 
+   liniowej?
+   Odpowiedź: Funkcja kosztu (np. MSE - Mean Squared Error) mierzy różnicę 
+   między przewidywanymi a rzeczywistymi wartościami. Jej minimalizacja 
+   pozwala znaleźć optymalne parametry modelu. Dla regresji liniowej:
+   J(a,b) = (1/n) · Σ(y_pred - y_actual)²
+
+4. Co to jest różniczka zupełna funkcji dwóch zmiennych?
+   Odpowiedź: Różniczka zupełna funkcji f(x,y) opisuje całkowitą zmianę 
+   wartości funkcji przy małych zmianach obu zmiennych. Jest zdefiniowana jako:
+   df = (∂f/∂x)·dx + (∂f/∂y)·dy
+   gdzie ∂f/∂x i ∂f/∂y to pochodne cząstkowe funkcji.
+
+5. Jak obliczyć pochodną cząstkową funkcji V = πr²H względem r?
+   Odpowiedź: Traktując H jako stałą, różniczkujemy względem r:
+   ∂V/∂r = π·H·d(r²)/dr = π·H·2r = 2πrH
+   Wynik mówi, jak zmienia się objętość przy zmianie promienia.
+
+6. Co to jest współczynnik uczenia (learning rate) i jak wpływa na zbieżność 
+   algorytmu gradientu prostego?
+   Odpowiedź: Współczynnik uczenia (α) określa wielkość kroku w kierunku 
+   minimum. Zbyt duży α może powodować oscylacje i brak zbieżności. Zbyt mały 
+   α prowadzi do wolnej zbieżności. Optymalna wartość zależy od problemu - 
+   typowe wartości to 0.001-0.01.
+
+7. Jak normalizacja danych wpływa na wydajność algorytmu gradientu prostego?
+   Odpowiedź: Normalizacja (np. standaryzacja lub skalowanie min-max) sprawia, 
+   że wszystkie cechy mają podobną skalę. Dzięki temu gradient descent zbiega 
+   szybciej, ponieważ aktualizacje parametrów są bardziej zbalansowane. Bez 
+   normalizacji, cechy o dużych wartościach mogą dominować nad innymi.
+
+8. Jaką rolę pełni metoda najmniejszych kwadratów w regresji liniowej?
+   Odpowiedź: Metoda najmniejszych kwadratów (MNK) minimalizuje sumę kwadratów 
+   odchyleń między wartościami obserwowanymi a przewidywanymi przez model. 
+   Dla modelu y = ax + b, optymalne parametry można wyznaczyć analitycznie:
+   a = Σ((xi - x̄)(yi - ȳ)) / Σ(xi - x̄)²
+   b = ȳ - a·x̄
+
+9. Co to jest pochodna cząstkowa i czym różni się od pochodnej zwykłej?
+   Odpowiedź: Pochodna cząstkowa funkcji wielu zmiennych mierzy szybkość zmiany 
+   funkcji względem jednej zmiennej, traktując pozostałe jako stałe. Pochodna 
+   zwykła dotyczy funkcji jednej zmiennej. Np. dla f(x,y) = x²y:
+   - ∂f/∂x = 2xy (y traktowane jako stała)
+   - ∂f/∂y = x² (x traktowane jako stała)
+
+10. Jak interpretować wynik analizy wrażliwości objętości walca na zmiany 
+    promienia i wysokości?
+    Odpowiedź: Pochodne cząstkowe objętości walca V = πr²H pokazują wrażliwość 
+    na zmiany wymiarów:
+    - ∂V/∂r = 2πrH (wpływ zmiany promienia)
+    - ∂V/∂H = πr² (wpływ zmiany wysokości)
+    Dla typowych proporcji puszki (H > r): 2πrH > πr², czyli zmiana promienia 
+    ma większy wpływ na objętość niż taka sama zmiana wysokości. Stosunek 
+    wrażliwości wynosi 2H/r, co dla puszki 330ml (~7.4) oznacza, że zmiana 
+    promienia o 1mm daje ~7.4 razy większy przyrost objętości.
+
+================================================================================

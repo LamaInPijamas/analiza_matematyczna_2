@@ -1,0 +1,82 @@
+OPRACOWANIE - Pytania z zakresu matematyki i informatyki
+========================================================
+Laboratorium 11: Całki krzywoliniowe i parametryzacje krzywych
+
+================================================================================
+PYTANIA:
+================================================================================
+
+1. Co to jest parametryzacja krzywej i jak ją definiujemy?
+   Odpowiedź: Parametryzacja krzywej γ w przestrzeni R^n to funkcja ciągła 
+   c: [a,b] → R^n, gdzie γ = c(I). Pozwala ona opisać krzywą jako obraz 
+   odcinka [a,b] przez funkcję c(t), gdzie t jest parametrem. Przykładowo, 
+   okrąg jednostkowy można sparametryzować jako c(t) = (cos(t), sin(t)) 
+   dla t ∈ [0, 2π].
+
+2. Jak sparametryzować odcinek łączący dwa punkty A(x₁,y₁) i B(x₂,y₂)?
+   Odpowiedź: Odcinek od A do B można sparametryzować wzorem:
+   c(t) = (x₁ + t(x₂-x₁), y₁ + t(y₂-y₁)) dla t ∈ [0, 1]
+   lub równoważnie: c(t) = (1-t)A + tB
+   Dla t=0 otrzymujemy punkt A, dla t=1 punkt B.
+
+3. Jaki jest wzór na długość krzywej gładkiej?
+   Odpowiedź: Dla krzywej γ:[a,b] → R² o parametryzacji γ(t) = (γ₁(t), γ₂(t)):
+   L(γ) = ∫[a,b] |γ'(t)| dt = ∫[a,b] √((γ₁'(t))² + (γ₂'(t))²) dt
+   Jest to suma nieskończenie małych odcinków łuku krzywej.
+
+4. Co to jest całka krzywoliniowa niezorientowana i jaka jest jej interpretacja?
+   Odpowiedź: Całka krzywoliniowa niezorientowana z funkcji f po krzywej γ:
+   ∫_γ f ds = ∫[a,b] f(γ(t)) · |γ'(t)| dt
+   Interpretacje fizyczne:
+   - Masa niejednorodnego pręta o kształcie γ z gęstością f
+   - Pole trapezu krzywoliniowego (dla f ≥ 0)
+   Wartość nie zależy od kierunku poruszania się po krzywej.
+
+5. Czym różni się całka krzywoliniowa zorientowana od niezorientowanej?
+   Odpowiedź: Całka zorientowana zależy od kierunku poruszania się po krzywej:
+   ∫_γ P dx + Q dy = ∫[a,b] [P(γ(t))γ₁'(t) + Q(γ(t))γ₂'(t)] dt
+   - Jest iloczynem skalarnym pola wektorowego F=(P,Q) z wektorem stycznym
+   - Interpretacja: praca wykonana przy przesunięciu wzdłuż krzywej w polu F
+   - Zmiana kierunku zmienia znak całki (w przeciwieństwie do niezorientowanej)
+
+6. Jak zmiana parametryzacji krzywej wpływa na jej długość?
+   Odpowiedź: Długość krzywej nie zależy od wyboru parametryzacji - jest 
+   własnością geometryczną krzywej. Jeśli c₁(t) = c(φ(t)), gdzie φ jest 
+   bijekcją, to L(c₁) = L(c). Przykład: c(t)=(t,2t) dla t∈[0,2] i 
+   c₁(t)=(2t,4t) dla t∈[0,1] opisują ten sam odcinek o tej samej długości.
+
+7. Jak sparametryzować okrąg o środku (a,b) i promieniu r?
+   Odpowiedź: c(t) = (a + r·cos(t), b + r·sin(t)) dla t ∈ [0, 2π]
+   - Kierunek przeciwny do wskazówek zegara: t rośnie od 0 do 2π
+   - Kierunek zgodny ze wskazówkami: c(t) = (a + r·cos(-t), b + r·sin(-t))
+   - Fragment okręgu: ograniczamy przedział t do odpowiednich wartości kątów
+
+8. Co to jest pole wektorowe i jak obliczamy pracę w polu wektorowym?
+   Odpowiedź: Pole wektorowe F: R² → R² przypisuje każdemu punktowi wektor.
+   Praca wykonana przy przesunięciu wzdłuż krzywej γ w polu F=(P,Q):
+   W = ∫_γ F · dr = ∫_γ P dx + Q dy
+   Jest to całka krzywoliniowa zorientowana. Interpretacja fizyczna: praca 
+   wykonana przez siłę F przy przesunięciu punktu materialnego wzdłuż γ.
+
+9. Kiedy całka krzywoliniowa po zamkniętej krzywej jest równa zero?
+   Odpowiedź: Całka po krzywej zamkniętej jest równa zero, gdy pole 
+   wektorowe F jest zachowawcze (potencjalne), czyli gdy istnieje funkcja 
+   potencjału U taka, że F = ∇U. Warunek konieczny: ∂P/∂y = ∂Q/∂x.
+   Fizycznie oznacza to, że praca nie zależy od drogi, tylko od punktów 
+   początkowego i końcowego (które dla krzywej zamkniętej są takie same).
+
+10. Jak wykorzystać bibliotekę SymPy do obliczania całek krzywoliniowych?
+    Odpowiedź: W Pythonie z biblioteką SymPy:
+    ```python
+    import sympy as sp
+    t = sp.symbols('t')
+    # Definiujemy parametryzację
+    gamma1 = sp.cos(t)  # x(t)
+    gamma2 = sp.sin(t)  # y(t)
+    # Obliczamy długość krzywej
+    ds = sp.sqrt(sp.diff(gamma1, t)**2 + sp.diff(gamma2, t)**2)
+    length = sp.integrate(ds, (t, 0, 2*sp.pi))  # = 2*pi dla okręgu jednostkowego
+    ```
+    SymPy automatycznie upraszcza wyrażenia i oblicza całki symboliczne.
+
+================================================================================

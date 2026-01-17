@@ -1,0 +1,192 @@
+================================================================================
+OPRACOWANIE: POCHODNE CZĄSTKOWE, KIERUNKOWE I GRADIENT
+================================================================================
+
+10 PYTAŃ Z ODPOWIEDZIAMI
+================================================================================
+
+PYTANIA TEORETYCZNO-MATEMATYCZNE:
+--------------------------------------------------------------------------------
+
+1. Czym jest pochodna cząstkowa i jak ją interpretować geometrycznie?
+
+ODPOWIEDŹ: Pochodna cząstkowa funkcji wielu zmiennych względem jednej zmiennej 
+to granica ilorazu różnicowego, gdy zmieniamy tylko tę jedną zmienną. 
+Geometrycznie, ∂f/∂x to nachylenie powierzchni z = f(x,y) w kierunku osi x 
+(przy stałym y). Jest to nachylenie prostej stycznej do krzywej powstałej 
+z przecięcia powierzchni płaszczyzną równoległą do płaszczyzny xz.
+
+--------------------------------------------------------------------------------
+
+2. Jaka jest różnica między pochodną cząstkową a pochodną kierunkową?
+
+ODPOWIEDŹ: Pochodna cząstkowa mierzy zmianę funkcji wzdłuż osi współrzędnych 
+(x lub y). Pochodna kierunkowa to uogólnienie - mierzy zmianę funkcji w 
+dowolnym kierunku określonym przez wektor jednostkowy u:
+D_u(f) = ∇f · u = (∂f/∂x)·u₁ + (∂f/∂y)·u₂
+Pochodne cząstkowe są szczególnymi przypadkami pochodnych kierunkowych dla 
+wektorów bazowych (1,0) i (0,1).
+
+--------------------------------------------------------------------------------
+
+3. Jak obliczyć gradient funkcji i co on reprezentuje?
+
+ODPOWIEDŹ: Gradient funkcji f(x,y) to wektor:
+∇f = (∂f/∂x, ∂f/∂y)
+Reprezentuje on:
+- Kierunek najszybszego wzrostu funkcji
+- Jego długość |∇f| określa tempo tego wzrostu
+- Jest prostopadły do linii poziomicowych funkcji
+Dla funkcji n zmiennych: ∇f = (∂f/∂x₁, ∂f/∂x₂, ..., ∂f/∂xₙ)
+
+--------------------------------------------------------------------------------
+
+4. Jaką wartość maksymalną może przyjąć pochodna kierunkowa?
+
+ODPOWIEDŹ: Maksymalna wartość pochodnej kierunkowej wynosi |∇f| (długość 
+gradientu) i jest osiągana, gdy kierunek u jest zgodny z kierunkiem gradientu. 
+Wynika to ze wzoru:
+D_u(f) = |∇f| · cos(θ)
+gdzie θ to kąt między u a ∇f. Maksimum osiągamy dla θ = 0 (cos(0) = 1).
+Minimalna wartość to -|∇f| dla kierunku przeciwnego do gradientu.
+
+--------------------------------------------------------------------------------
+
+5. Co oznacza, że gradient w punkcie jest wektorem zerowym?
+
+ODPOWIEDŹ: Oznacza to, że punkt jest punktem krytycznym (stacjonarnym) funkcji. 
+Może to być:
+- Maksimum lokalne
+- Minimum lokalne  
+- Punkt siodłowy
+W takim punkcie wszystkie pochodne kierunkowe są równe zero - funkcja nie 
+rośnie ani nie maleje w żadnym kierunku. Aby określić typ punktu krytycznego, 
+należy zbadać hesjan (macierz drugich pochodnych cząstkowych).
+
+--------------------------------------------------------------------------------
+
+PYTANIA INFORMATYCZNE/OBLICZENIOWE:
+--------------------------------------------------------------------------------
+
+6. Jak numerycznie przybliżyć pochodną cząstkową w Pythonie?
+
+ODPOWIEDŹ: Metodą różnic skończonych (centralna):
+
+def partial_x(f, x, y, h=1e-5):
+    return (f(x+h, y) - f(x-h, y)) / (2*h)
+
+def partial_y(f, x, y, h=1e-5):
+    return (f(x, y+h) - f(x, y-h)) / (2*h)
+
+Alternatywnie można użyć:
+- scipy.misc.derivative
+- numpy.gradient dla danych dyskretnych
+- Automatyczne różniczkowanie: autograd, JAX, PyTorch autograd
+
+--------------------------------------------------------------------------------
+
+7. Do czego służy gradient w uczeniu maszynowym?
+
+ODPOWIEDŹ: Gradient jest podstawą algorytmu gradient descent używanego do 
+minimalizacji funkcji straty (loss function). Aktualizacja wag:
+w_new = w_old - α · ∇L(w)
+gdzie α to learning rate (współczynnik uczenia), a L to funkcja straty.
+
+Warianty:
+- Batch Gradient Descent - używa całego zbioru danych
+- Stochastic Gradient Descent (SGD) - używa pojedynczych próbek
+- Mini-batch GD - używa małych podzbiorów
+- Adam, RMSprop - adaptacyjne metody optymalizacji
+
+--------------------------------------------------------------------------------
+
+8. Czym są powierzchnie Béziera i jak je definiujemy parametrycznie?
+
+ODPOWIEDŹ: Powierzchnia Béziera to powierzchnia parametryczna zdefiniowana 
+przez siatkę punktów kontrolnych (n+1) × (m+1). Wzór:
+
+S(u,v) = Σᵢ₌₀ⁿ Σⱼ₌₀ᵐ Bᵢⁿ(u) · Bⱼᵐ(v) · Pᵢⱼ
+
+gdzie:
+- Bᵢⁿ(u) = C(n,i) · uⁱ · (1-u)ⁿ⁻ⁱ - wielomiany Bernsteina
+- Pᵢⱼ - punkty kontrolne
+- u, v ∈ [0, 1] - parametry
+
+Właściwości:
+- Powierzchnia przechodzi przez narożne punkty kontrolne
+- Jest zawarta w wypukłej otoczce punktów kontrolnych
+- Gładka i ciągła
+
+--------------------------------------------------------------------------------
+
+9. Jak obliczyć wektor normalny do powierzchni parametrycznej?
+
+ODPOWIEDŹ: Wektor normalny obliczamy jako iloczyn wektorowy pochodnych 
+cząstkowych powierzchni względem parametrów:
+
+n = (∂S/∂u) × (∂S/∂v)
+
+Normalizacja do wektora jednostkowego:
+n̂ = n / |n|
+
+W Pythonie:
+import numpy as np
+
+def normal_vector(Su, Sv):
+    n = np.cross(Su, Sv)
+    return n / np.linalg.norm(n)
+
+Wektor normalny jest potrzebny do:
+- Oświetlenia w grafice 3D
+- Określenia orientacji powierzchni
+- Obliczeń kolizji
+
+--------------------------------------------------------------------------------
+
+10. Jakie biblioteki Python służą do wizualizacji powierzchni 3D i obliczeń 
+    symbolicznych?
+
+ODPOWIEDŹ:
+
+WIZUALIZACJA 3D:
+- matplotlib (mpl_toolkits.mplot3d) - podstawowa, łatwa w użyciu
+- plotly - interaktywna, eksport do HTML
+- mayavi - zaawansowana wizualizacja naukowa
+- vispy - wydajna, oparta na OpenGL
+- pyvista - do siatek i danych volumetrycznych
+
+OBLICZENIA SYMBOLICZNE:
+- sympy - symboliczne różniczkowanie, całkowanie, upraszczanie
+  from sympy import symbols, diff
+  x, y = symbols('x y')
+  f = x**2 + y**2
+  df_dx = diff(f, x)  # 2*x
+
+OBLICZENIA NUMERYCZNE:
+- numpy - tablice, algebra liniowa
+- scipy - optymalizacja, interpolacja, pochodne numeryczne
+
+INTERAKTYWNOŚĆ w Jupyter:
+- ipywidgets - suwaki, przyciski do manipulacji wykresami
+- plotly z ipywidgets - interaktywne wykresy 3D
+
+================================================================================
+WZORY DO ZAPAMIĘTANIA:
+================================================================================
+
+1. Pochodna cząstkowa:
+   ∂f/∂x = lim(h→0) [f(x+h,y) - f(x,y)] / h
+
+2. Gradient:
+   ∇f(x,y) = (∂f/∂x, ∂f/∂y)
+
+3. Pochodna kierunkowa:
+   D_u(f) = ∇f · u = |∇f| · cos(θ)
+
+4. Równanie płaszczyzny stycznej:
+   z = f(x₀,y₀) + ∂f/∂x(x₀,y₀)·(x-x₀) + ∂f/∂y(x₀,y₀)·(y-y₀)
+
+5. Wielomian Bernsteina:
+   Bᵢⁿ(t) = C(n,i) · tⁱ · (1-t)ⁿ⁻ⁱ
+
+================================================================================
